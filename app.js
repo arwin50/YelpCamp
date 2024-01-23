@@ -44,7 +44,9 @@ app.use(ExpressMongoSanitize())
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
-    secret: 'thisshouldbeabettersecret!'
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
 });
 
 store.on('error',function(e){
@@ -54,7 +56,7 @@ store.on('error',function(e){
 const sessionConfig = {
     store,
     name:'session',
-    secret,
+    secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: true,
     cookie: {
